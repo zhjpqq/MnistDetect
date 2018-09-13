@@ -6,6 +6,7 @@ __author__ = 'ooo'
 import numpy as np
 import torch as t
 import torchvision as tv
+import random
 from torch.utils import data
 from torchvision.datasets import mnist, FakeData
 
@@ -30,16 +31,18 @@ class Mnist(data.Dataset):
     def __repr__(self):
         print('Mnist fake data for detection')
 
-    def init_index(self):
+    def init_index(self, shuffle=True):
         if self.mnist.train:
             digits, labels = self.mnist.train_data, self.mnist.train_labels
         else:
             digits, labels = self.mnist.test_data, self.mnist.test_labels
 
-        digits_index = range(0, len(labels))
+        digits_index = np.random.permutation(len(labels)) if shuffle else np.arange(0, len(labels))
         self.index_list = [()]*self.img_nums
         for index in self.index_list:
-            step =
+            nums = self.digit_nums[random.randint(0, len(self.digit_nums)-1)]
+            idxs = digits_index
+
 
 
     def get_digits(self, index):
